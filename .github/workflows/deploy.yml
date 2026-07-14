@@ -32,7 +32,9 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
         run: |
           ssh $SERVER_USER@$SERVER_IP << 'EOF'
+            set -e
             cd ~/personal-tech-site
+            git config http.sslVerify false
             git pull origin main
             docker compose build
             docker compose up -d --no-build
