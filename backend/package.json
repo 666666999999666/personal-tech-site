@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "personal-tech-site-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "个人技术网站后端服务",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
