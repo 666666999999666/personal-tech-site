@@ -1,5 +1,9 @@
+// 加载环境变量（必须最先加载，让后续 require 的模块能读到 process.env）
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
+const connectDB = require('./config/database');
 
 const app = express();
 
@@ -53,8 +57,12 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+
+// 先连接数据库，连上后再启动 HTTP 服务（避免后端空转）
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
 });
 
 module.exports = app;

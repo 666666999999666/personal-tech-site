@@ -20,4 +20,24 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3001
+      # MongoDB 连接字符串：mongo 是服务名，27017 是默认端口
+      - MONGODB_URI=mongodb://mongo:27017/personal_tech_site
+      # 生产环境 CORS 来源（备案通过后改成你的域名）
+      - CORS_ORIGIN=*
+    depends_on:
+      - mongo
     restart: unless-stopped
+
+  # MongoDB 数据库服务
+  mongo:
+    image: mongo:7
+    # 暴露端口仅在本地调试时需要，生产环境注释掉，不对外暴露
+    # ports:
+    #   - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+# 命名数据卷：用于 MongoDB 数据持久化
+volumes:
+  mongo_data:
