@@ -14,22 +14,22 @@ function validateProject(data) {
 }
 
 const projectController = {
-  getAll: (req, res) => {
+  getAll: async (req, res) => {
     try {
-      const projects = projectService.getAll();
+      const projects = await projectService.getAll();
       res.json(projects);
     } catch (error) {
       res.status(500).json({ message: '获取项目列表失败' });
     }
   },
 
-  create: (req, res) => {
+  create: async (req, res) => {
     const errors = validateProject(req.body);
     if (errors.length > 0) {
       return res.status(400).json({ message: errors.join(', ') });
     }
     try {
-      const project = projectService.create({
+      const project = await projectService.create({
         name: req.body.name.trim(),
         description: req.body.description.trim(),
         longDescription: req.body.longDescription?.trim() || '',
@@ -44,9 +44,9 @@ const projectController = {
     }
   },
 
-  getById: (req, res) => {
+  getById: async (req, res) => {
     try {
-      const project = projectService.getById(req.params.id);
+      const project = await projectService.getById(req.params.id);
       if (!project) {
         return res.status(404).json({ message: '项目不存在' });
       }
@@ -56,13 +56,13 @@ const projectController = {
     }
   },
 
-  update: (req, res) => {
+  update: async (req, res) => {
     const errors = validateProject(req.body);
     if (errors.length > 0) {
       return res.status(400).json({ message: errors.join(', ') });
     }
     try {
-      const project = projectService.update(req.params.id, {
+      const project = await projectService.update(req.params.id, {
         name: req.body.name.trim(),
         description: req.body.description.trim(),
         longDescription: req.body.longDescription?.trim() || '',
@@ -80,9 +80,9 @@ const projectController = {
     }
   },
 
-  remove: (req, res) => {
+  remove: async (req, res) => {
     try {
-      const success = projectService.remove(req.params.id);
+      const success = await projectService.remove(req.params.id);
       if (!success) {
         return res.status(404).json({ message: '项目不存在' });
       }

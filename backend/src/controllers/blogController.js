@@ -14,22 +14,22 @@ function validateBlog(data) {
 }
 
 const blogController = {
-  getAll: (req, res) => {
+  getAll: async (req, res) => {
     try {
-      const blogs = blogService.getAll();
+      const blogs = await blogService.getAll();
       res.json(blogs);
     } catch (error) {
       res.status(500).json({ message: '获取博客列表失败' });
     }
   },
 
-  create: (req, res) => {
+  create: async (req, res) => {
     const errors = validateBlog(req.body);
     if (errors.length > 0) {
       return res.status(400).json({ message: errors.join(', ') });
     }
     try {
-      const blog = blogService.create({
+      const blog = await blogService.create({
         title: req.body.title.trim(),
         content: req.body.content.trim(),
         tags: Array.isArray(req.body.tags) ? req.body.tags : [],
@@ -40,25 +40,26 @@ const blogController = {
     }
   },
 
-  getById: (req, res) => {
+  getById: async (req, res) => {
     try {
-      const blog = blogService.getById(req.params.id);
+      const blog = await blogService.getById(req.params.id);
       if (!blog) {
         return res.status(404).json({ message: '博客不存在' });
       }
       res.json(blog);
     } catch (error) {
+      // ObjectId 格式非法也会进 catch
       res.status(500).json({ message: '获取博客详情失败' });
     }
   },
 
-  update: (req, res) => {
+  update: async (req, res) => {
     const errors = validateBlog(req.body);
     if (errors.length > 0) {
       return res.status(400).json({ message: errors.join(', ') });
     }
     try {
-      const blog = blogService.update(req.params.id, {
+      const blog = await blogService.update(req.params.id, {
         title: req.body.title.trim(),
         content: req.body.content.trim(),
         tags: Array.isArray(req.body.tags) ? req.body.tags : [],
@@ -72,9 +73,9 @@ const blogController = {
     }
   },
 
-  remove: (req, res) => {
+  remove: async (req, res) => {
     try {
-      const success = blogService.remove(req.params.id);
+      const success = await blogService.remove(req.params.id);
       if (!success) {
         return res.status(404).json({ message: '博客不存在' });
       }
