@@ -25,17 +25,16 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      # 4. 部署到服务器
+      # 4. 部署到服务器（优化版：先构建再切换，减少停机时间）
       - name: Deploy to server
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
         run: |
-          # 在服务器上执行部署脚本
           ssh $SERVER_USER@$SERVER_IP << 'EOF'
             cd ~/personal-tech-site
             git pull origin main
-            docker-compose down
-            docker-compose up -d --build
+            docker compose build
+            docker compose up -d --no-build
             docker image prune -f
           EOF
