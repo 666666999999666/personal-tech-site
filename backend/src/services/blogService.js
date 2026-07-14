@@ -1,4 +1,4 @@
-// 内存存储，Phase 3 使用更丰富的 Markdown 内容
+// 博客数据（内存存储，后续可替换为 MongoDB）
 let blogs = [
   {
     id: '1',

@@ -1,9 +1,8 @@
-// Agent 服务 - Phase 5 SSE 流式通信
-// 模拟 LLM 流式响应
+// Agent 服务 - SSE 流式通信
 
 const agentService = {
   /**
-   * 模拟流式响应
+   * 流式响应（当前为模拟数据，可替换为真实 LLM API）
    * @param {string} message - 用户消息
    * @param {Function} onChunk - 每收到一个 chunk 的回调
    */
@@ -22,23 +21,20 @@ const agentService = {
 
 ## 详细解答
 
-javascript
+\`\`\`javascript
 // 示例代码
 function example() {
   console.log("这是一个示例");
 }
-
+\`\`\`
 
 ## 总结
 
-希望这个回答对你有帮助！如果有其他问题，欢迎继续提问。
+希望这个回答对你有帮助！如果有其他问题，欢迎继续提问。`;
 
----
-*这是模拟的流式响应，实际接入 LLM 后会显示真实的 AI 回答。*`;
-
-    // 模拟流式输出：将响应分成多个 chunk
-    const chunks = response.split(/(?<=\n)/); // 按行分割
-    const delay = 50; // 每 chunk 间隔 50ms
+    // 流式输出：将响应分成多个 chunk，模拟打字效果
+    const chunks = response.split(/(?<=\n)/);
+    const delay = 50;
 
     for (const chunk of chunks) {
       if (chunk.trim()) {
@@ -52,7 +48,7 @@ function example() {
    * 非流式响应（兼容旧接口）
    */
   chat: async (message) => {
-    return `收到消息："${message}"\n\n（这是模拟响应，Phase 5 已支持 SSE 流式通信）`;
+    return `收到消息："${message}"`;
   },
 };
 

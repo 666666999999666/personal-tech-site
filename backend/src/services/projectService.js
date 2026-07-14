@@ -1,4 +1,4 @@
-// 内存存储 - Phase 4 丰富的项目数据
+// 项目数据（内存存储，后续可替换为 MongoDB）
 let projects = [
   {
     id: '1',
