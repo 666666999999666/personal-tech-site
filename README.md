@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QZ Site — 个人网站 V2
 
-## Getting Started
+一个基于 Agent Native 理念构建的个人网站，支持博客写作、待办管理、AI Agent 对话。
 
-First, run the development server:
+## 技术栈
+
+- **Next.js 16** — App Router + Server Components
+- **Tailwind CSS v4** — 原子化 CSS
+- **PostgreSQL** — 数据存储
+- **Drizzle ORM** — 类型安全的数据库操作
+- **NextAuth v5** — 密码认证
+- **TipTap** — 富文本编辑器
+- **next-intl** — 中英双语国际化
+
+## 功能
+
+- 📝 博客系统 — TipTap 编辑器 + Markdown 渲染 + 分类/搜索
+- ✅ 待办管理 — 分区管理 + 拖拽排序 + 数据库持久化
+- 🤖 AI Agent — 对话式交互 + 工具调用
+- 🔒 认证系统 — 密码登录 + 受保护的个人空间
+- 🌐 国际化 — 中英双语
+- 🎨 主题切换 — 亮色/暗色
+
+## 开发
 
 ```bash
+# 安装依赖
+npm install
+
+# 配置环境变量
+cp .env.example .env
+# 编辑 .env 填入数据库连接等信息
+
+# 创建数据库表
+npm run db:push
+
+# 导入种子数据
+npm run db:seed
+
+# 启动开发服务器
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 部署
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+支持 Docker Compose 部署：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+docker compose up -d
+```
 
-## Learn More
+## 环境变量
 
-To learn more about Next.js, take a look at the following resources:
+参见 `.env.example`，关键变量：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `DATABASE_URL` — PostgreSQL 连接字符串
+- `AUTH_SECRET` — NextAuth 密钥
+- `OWNER_PASSWORD_HASH` — 管理员密码的 bcrypt 哈希（用 `node -e "console.log(require('bcryptjs').hashSync('你的密码', 10))"` 生成，注意转义 `$` 为 `\$`）

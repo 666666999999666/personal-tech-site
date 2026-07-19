@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx glance-mcp *)",
+      "Bash(cd \"c:\\\\Users\\\\90354\\\\Desktop\\\\个人网站v2\" && rm -rf .browser-sessions/ .trae/ temp-init/ debug-runtime-issue-check.md openspec/)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\90354\\Desktop\\个人网站v2\\.browser-sessions"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "glance"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "glance": {
+      "command": "npx",
+      "args": ["glance-mcp"],
+      "env": {
+        "BROWSER_HEADLESS": "true"
+      }
+    }
+  }
+}
